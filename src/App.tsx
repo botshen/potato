@@ -1,15 +1,22 @@
-import React, {FC} from 'react';
-import {Button} from 'antd';
-import {Rate} from 'antd';
+import * as React from 'react';
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import Login from './components/Login/Login'
+import SignUp from './components/SignUp/SignUp'
+import Index from './components/Index/Index'
 
+class App extends React.Component{
 
-import './App.css';
+    render(){
+        return (
+            <Router>
+                <div>
+                    <Route exact={true} path="/" component={Index}/>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/signUp" component={SignUp}/>
+                </div>
+            </Router>
+        )
+    }
+}
 
-const App: FC = () => (
-    <div className="App">
-        <Button type="ghost">Button</Button>
-        <Rate/>
-    </div>
-);
-
-export default App;
+export default App
