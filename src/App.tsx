@@ -6,17 +6,17 @@ import Index from './components/Index/Index'
 
 class App extends React.Component{
 
-    render(){
-        return (
-            <Router>
-                <div>
-                    <Route exact={true} path="/" component={Index}/>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/signUp" component={SignUp}/>
-                </div>
-            </Router>
-        )
-    }
+	render(){
+		return (
+			<Router>
+				<div>
+					<Route exact={true} path="/" component={Index}/>
+					<Route path="/login" component={Login}/>
+					<Route path="/signUp" component={SignUp}/>
+				</div>
+			</Router>
+		)
+	}
 }
 
 export default App
