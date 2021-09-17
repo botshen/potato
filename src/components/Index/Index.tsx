@@ -25,12 +25,8 @@ class Index extends React.Component<IRouter, IIndexState> {
     }
 
     getMe = async () => {
-        try {
-            const response = await axios.get('me');
-            this.setState({user: response.data});
-        } catch (e) {
-            console.log(e);
-        }
+        const response = await axios.get('me');
+        this.setState({user: response.data});
     };
 
     logout = () => {
