@@ -1,38 +1,38 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import {initTodos,updateTodo} from "../../redux/actions";
+import {connect} from 'react-redux';
+import {initTodos, updateTodo} from "../../redux/actions/todos";
 import TodoInput from 'src/components/Todos/TodoInput'
-import TodoItem from  'src/components/Todos/TodoItem'
+import TodoItem from 'src/components/Todos/TodoItem'
 import axios from 'src/config/axios'
 import './Todos.scss'
 
 class Todos extends React.Component<any> {
-    constructor(props){
+    constructor(props) {
         super(props)
     }
 
-    get unDeletedTodos(){
+    get unDeletedTodos() {
         return this.props.todos.filter(t => !t.deleted)
     }
 
-    get unCompletedTodos(){
+    get unCompletedTodos() {
         return this.unDeletedTodos.filter(t => !t.completed)
     }
 
-    get completedTodos(){
+    get completedTodos() {
         return this.unDeletedTodos.filter(t => t.completed)
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getTodos()
     }
 
     getTodos = async () => {
-        try{
+        try {
             const response = await axios.get('todos')
-            const todos = response.data.resources.map(t=>Object.assign({},t,{editing: false}))
+            const todos = response.data.resources.map(t => Object.assign({}, t, {editing: false}))
             this.props.initTodos(todos)
-        }catch (e) {
+        } catch (e) {
             throw new Error(e)
         }
     }
@@ -43,11 +43,11 @@ class Todos extends React.Component<any> {
                 <TodoInput/>
                 <div className="todoLists">
                     {
-                        this.unCompletedTodos.map(t=>
+                        this.unCompletedTodos.map(t =>
                             <TodoItem key={t.id} {...t}/>)
                     }
                     {
-                        this.completedTodos.map(t=>
+                        this.completedTodos.map(t =>
                             <TodoItem key={t.id} {...t}/>)
                     }
                 </div>
@@ -66,4 +66,4 @@ const mapDispatchToProps = {
     updateTodo
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Todos);
+export default connect(mapStateToProps, mapDispatchToProps)(Todos);

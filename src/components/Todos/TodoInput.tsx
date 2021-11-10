@@ -1,44 +1,43 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import {addTodo} from "../../redux/actions";
+import {connect} from 'react-redux';
+import {addTodo} from "../../redux/actions/todos";
 import axios from 'src/config/axios';
-import {Input,Icon} from 'antd';
+import {Input, Icon} from 'antd';
 
 interface ITodoInputState {
     description: string;
 }
 
 interface ITodoInputProps {
-    addTodo: (payload:any) => any;
+    addTodo: (payload: any) => any;
 }
 
-class TodoInput extends React.Component<ITodoInputProps,ITodoInputState> {
-    constructor(props){
+class TodoInput extends React.Component<ITodoInputProps, ITodoInputState> {
+    constructor(props) {
         super(props)
         this.state = {
             description: ''
         }
-        console.log(this.props)
     }
 
     onKeyUp = (e) => {
-        if(e.keyCode === 13 && this.state.description !== ''){
+        if (e.keyCode === 13 && this.state.description !== '') {
             this.postTodo()
         }
     }
 
-    postTodo = async ()=>{
+    postTodo = async () => {
         try {
-            const response = await axios.post('todos',{description: this.state.description})
+            const response = await axios.post('todos', {description: this.state.description})
             this.props.addTodo(response.data.resource)
-        }catch (e) {
+        } catch (e) {
             throw new Error(e)
         }
         this.setState({description: ''})
     }
 
     public render() {
-        const { description } = this.state;
+        const {description} = this.state;
         const suffix = description ? <Icon type="enter" onClick={this.postTodo}/> : <span/>;
         return (
             <div className="TodoInput" id="TodoInput">
@@ -62,4 +61,4 @@ const mapDispatchToProps = {
     addTodo
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(TodoInput);
+export default connect(mapStateToProps, mapDispatchToProps)(TodoInput);
